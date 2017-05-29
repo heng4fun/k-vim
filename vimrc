@@ -636,7 +636,7 @@ set lazyredraw          " redraw only when we need to.
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Monaco:h14
+    set guifont=Menlo:h12
     if has("gui_gtk2")   "GTK2
         set guifont=Monaco\ 12,Monospace\ 12
     endif
@@ -648,6 +648,8 @@ if has("gui_running")
     set showtabline=1
     set linespace=2
     set noimd
+    set imi=0
+    set ims=0
     set t_Co=256
 endif
 
