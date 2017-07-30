@@ -30,13 +30,10 @@ call plug#begin('~/.vim/bundle')
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
 
 " syntastic
-if v:version < 800
-    Plug 'scrooloose/syntastic'
-else
-    Plug 'w0rp/ale'
-endif
+Plug 'w0rp/ale'
 
-" Plug 'scrooloose/syntastic'
+" for chinese im
+Plug 'ybian/smartim'
 
 
 " python-mode
@@ -299,19 +296,8 @@ call plug#end()
 
 " ################### 基础 ######################
 
-" syntastic {{{
-if has_key(g:plugs, 'syntastic')
-    " dependence
-    " 1. shellcheck `brew install shellcheck` https://github.com/koalaman/shellcheck
-
-    let g:syntastic_error_symbol='>>'
-    let g:syntastic_warning_symbol='>'
-    let g:syntastic_check_on_open=1
-    let g:syntastic_check_on_wq=0
-    let g:syntastic_enable_highlighting=1
-
-    " checkers
-    " python
+" ale {{{
+if has_key(g:plugs, 'ale')
     " pip install flake8
     let g:syntastic_python_checkers=['flake8', ] " 使用pyflakes,速度比pylint快
     let g:syntastic_python_flake8_options='--ignore=E501,E225,E124,E712,E116,E131'
@@ -321,118 +307,46 @@ if has_key(g:plugs, 'syntastic')
     " let g:syntastic_html_checkers=['tidy', 'jshint']
     " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
     " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
-    let g:syntastic_javascript_checkers = ['eslint']
+    let g:ale_linters = {
+    \   'python': ['flake8'],
+    \   'javascript': ['eslint'],
+    \}
 
-    " to see error location list
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_enable_signs = 1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_auto_jump = 0
-    let g:syntastic_loc_list_height = 5
+    " E501 -> 120 chars
+    let g:ale_python_flake8_args="--ignore=E114,E116,E131 --max-line-length=120"
+    " --ignore=E225,E124,E712,E116
 
+    let g:ale_sign_error = '>>'
+    let g:ale_sign_warning = '>'
+
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+    nmap <silent> <Leader>ep <Plug>(ale_previous_wrap)
+    nmap <silent> <Leader>en <Plug>(ale_next_wrap)
+
+    nnoremap <silent> <Leader>ec :ALEToggle<CR>
+
+    " troggle quickfix list
     function! ToggleErrors()
         let old_last_winnr = winnr('$')
         lclose
         if old_last_winnr == winnr('$')
             " Nothing was closed, open syntastic_error location panel
-            Errors
+            lopen
         endif
-    " " dependence
-    " " 1. shellcheck `brew install shellcheck` https://github.com/koalaman/shellcheck
-
-    " let g:syntastic_error_symbol='>>'
-    " let g:syntastic_warning_symbol='>'
-    " let g:syntastic_check_on_open=1
-    " let g:syntastic_check_on_wq=0
-    " let g:syntastic_enable_highlighting=1
-
-    " " checkers
-    " " 最轻量
-    " " let g:syntastic_python_checkers=['pyflakes'] " 使用pyflakes
-    " " 中等
-    " " error code: http://pep8.readthedocs.org/en/latest/intro.html#error-codes
-    " let g:syntastic_python_checkers=['pyflakes', 'pep8'] " 使用pyflakes,速度比pylint快
-    " let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
-    " " 重量级, 但是足够强大, 定制完成后相当个性化
-    " " pylint codes: http://pylint-messages.wikidot.com/all-codes
-    " " let g:syntastic_python_checkers=['pyflakes', 'pylint'] " 使用pyflakes,速度比pylint快
-    " " let g:syntastic_python_checkers=['pylint'] " 使用pyflakes,速度比pylint快
-    " " let g:syntastic_python_pylint_args='--disable=C0111,R0903,C0301'
-
-    " " if js
-    " " let g:syntastic_javascript_checkers = ['jsl', 'jshint']
-    " " let g:syntastic_html_checkers=['tidy', 'jshint']
-
-    " " to see error location list
-    " let g:syntastic_always_populate_loc_list = 1
-    " let g:syntastic_enable_signs = 1
-    " let g:syntastic_auto_loc_list = 0
-    " let g:syntastic_auto_jump = 0
-    " let g:syntastic_loc_list_height = 5
-
-    " function! ToggleErrors()
-        " let old_last_winnr = winnr('$')
-        " lclose
-        " if old_last_winnr == winnr('$')
-            " " Nothing was closed, open syntastic_error location panel
-            " Errors
-        " endif
-    " endfunction
-    " nnoremap <Leader>s :call ToggleErrors()<cr>
-
-    " " ,en ,ep to jump between errors
-    " function! <SID>LocationPrevious()
-    " try
-        " lprev
-    " catch /^Vim\%((\a\+)\)\=:E553/
-        " llast
-    " endtry
-    " endfunction
-
-    " function! <SID>LocationNext()
-    " try
-        " lnext
-    " catch /^Vim\%((\a\+)\)\=:E553/
-        " lfirst
-    " endtry
-    " endfunction
-
-    " nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-    " nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-    " nmap <silent> <Leader>ep    <Plug>LocationPrevious
-    " nmap <silent> <Leader>en    <Plug>LocationNext
-
-    " " 修改高亮的背景色, 适应主题
-    " highlight SyntasticErrorSign guifg=white guibg=black
-
-    " " 禁止插件检查java
-    " " thanks to @marsqing, see https://github.com/wklken/k-vim/issues/164
-    " let g:syntastic_mode_map = {'mode': 'active', 'passive_filetypes': ['java'] }
-
-    " " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
-    " nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
-" }}}
-
-" ale {{{
-    let &runtimepath.=',~/.vim/bundle/ale'
-    function! LinterStatus() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-
-        return l:counts.total == 0 ? 'OK' : printf(
-        \   '%dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
     endfunction
+    nnoremap <Leader>s :call ToggleErrors()<cr>
 
-    " 关闭syntastic语法检查, 鼠标复制代码时用到, 防止把错误标志给复制了
-    nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
+    let g:ale_set_highlights = 1
+    highlight link ALEErrorSign  error
+    highlight link ALEWarningSign Exception
 endif
-    set statusline=%{LinterStatus()}
+
 " }}}
+
 
 hi pythonSelf ctermfg=174 guifg=#6094DB cterm=bold gui=bold
 
@@ -965,5 +879,4 @@ endif
     " vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
 " }}}
-
 "------------------------------------------- end of configs --------------------------------------------
