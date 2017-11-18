@@ -648,19 +648,19 @@ if has("gui_running")
     set showtabline=1
     set linespace=2
     set noimd
-    set imi=0
-    set ims=0
     set t_Co=256
 endif
-
 
 
 " theme主题
 set background=dark
 set t_Co=256
 
-colorscheme solarized
-" colorscheme molokai
+colorscheme dracula
+" colorscheme spacemacs-theme
+" if (has("termguicolors"))
+  " set termguicolors
+" endif
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
