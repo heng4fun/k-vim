@@ -37,7 +37,7 @@ Plug 'ybian/smartim'
 
 
 " python-mode
-Plug 'python-mode/python-mode'
+" Plug 'python-mode/python-mode'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -64,7 +64,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 " trailingwhitespace
 " 快速去行尾空格 [, + <Space>]
-" Plug 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
 " easyalign
 " 快速赋值语句对齐
 " Plug 'junegunn/vim-easy-align'
@@ -121,9 +121,9 @@ Plug 'dyng/ctrlsf.vim'
 
 " git
 " fugitive
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 " gitgutter
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " gundo
 " edit history, 可以查看回到某个历史状态

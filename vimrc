@@ -656,7 +656,9 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme dracula
+colorscheme molokai
+" colorscheme solarized
+" colorscheme dracula
 " colorscheme spacemacs-theme
 " if (has("termguicolors"))
   " set termguicolors
