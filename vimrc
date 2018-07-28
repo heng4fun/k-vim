@@ -636,9 +636,9 @@ set lazyredraw          " redraw only when we need to.
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Menlo:h12
+    set guifont=Menlo:h14
     if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
+        set guifont=Monaco\ 14,Monospace\ 14
     endif
     set guioptions-=T
     set guioptions+=e
@@ -647,7 +647,7 @@ if has("gui_running")
     set guitablabel=%M\ %t
     set showtabline=1
     set linespace=2
-    set noimd
+    set iminsert=1 imsearch=0
     set t_Co=256
 endif
 
@@ -656,13 +656,8 @@ endif
 set background=dark
 set t_Co=256
 
-colorscheme molokai
 " colorscheme solarized
-" colorscheme dracula
-" colorscheme spacemacs-theme
-" if (has("termguicolors"))
-  " set termguicolors
-" endif
+colorscheme dracula
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

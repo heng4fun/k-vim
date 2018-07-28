@@ -37,7 +37,7 @@ Plug 'ybian/smartim'
 
 
 " python-mode
-" Plug 'python-mode/python-mode'
+Plug 'python-mode/python-mode'
 
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
@@ -52,7 +52,7 @@ Plug 'Valloric/YouCompleteMe'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
-Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
+" Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 
 " quick edit
 " 快速注释
@@ -138,11 +138,7 @@ Plug 'vim-airline/vim-airline-themes'
 " 括号显示增强
 Plug 'kien/rainbow_parentheses.vim'
 " 主题 solarized
-Plug 'altercation/vim-colors-solarized'
-" 主题 molokai
-Plug 'tomasr/molokai'
-" 主题 spacemacs
-Plug 'colepeters/spacemacs-theme.vim'
+" Plug 'altercation/vim-colors-solarized'
 " 主题 dracula
 Plug 'dracula/vim'
 
@@ -311,7 +307,6 @@ if has_key(g:plugs, 'ale')
     " npm install -g eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
     let g:ale_linters = {
     \   'python': ['flake8'],
-    \   'javascript': ['eslint'],
     \}
 
     " E501 -> 120 chars
@@ -598,10 +593,10 @@ hi pythonSelf ctermfg=174 guifg=#6094DB cterm=bold gui=bold
 " gitgutter {{{
     " 同git diff,实时展示文件中修改的行
     " 只是不喜欢除了行号多一列, 默认关闭,gs时打开
-    let g:gitgutter_map_keys = 0
-    let g:gitgutter_enabled = 1
-    let g:gitgutter_highlight_lines = 1
-    nnoremap <leader>gs :GitGutterToggle<CR>
+    " let g:gitgutter_map_keys = 0
+    " let g:gitgutter_enabled = 1
+    " let g:gitgutter_highlight_lines = 1
+    " nnoremap <leader>gs :GitGutterToggle<CR>
 " }}}
 
 " gundo {{{
