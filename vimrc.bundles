@@ -32,13 +32,6 @@ call plug#begin('~/.vim/bundle')
 " syntastic
 Plug 'w0rp/ale'
 
-" for chinese im
-Plug 'ybian/smartim'
-
-
-" python-mode
-Plug 'python-mode/python-mode'
-
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
@@ -121,7 +114,7 @@ Plug 'dyng/ctrlsf.vim'
 
 " git
 " fugitive
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " gitgutter
 " Plug 'airblade/vim-gitgutter'
 
@@ -557,12 +550,16 @@ hi pythonSelf ctermfg=174 guifg=#6094DB cterm=bold gui=bold
 " ctrlsf {{{
     nmap <Leader>\ <Plug>CtrlSFCwordPath<CR>
     nmap \ <Plug>CtrlSFPrompt
-    " let g:ctrlsf_position = 'below'
-    " let g:ctrlsf_winsize = '30%'
+    let g:ctrlsf_position = 'bottom'
+    let g:ctrlsf_winsize = '40%'
+    let g:ctrlsf_search_mode = 'async'
     let g:ctrlsf_auto_close = 0
     let g:ctrlsf_confirm_save = 0
     " Note: cannot use <CR> or <C-m> for open
     " Use : <sapce> or <tab>
+    let g:ctrlsf_auto_focus = {
+        \ "at": "start"
+        \ }
     let g:ctrlsf_mapping = {
         \ "open"  : "<Space>",
         \ "openb" : "O",
@@ -832,4 +829,6 @@ hi pythonSelf ctermfg=174 guifg=#6094DB cterm=bold gui=bold
     " vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
 " }}}
+
+
 "------------------------------------------- end of configs --------------------------------------------
