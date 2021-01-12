@@ -63,7 +63,7 @@ filetype plugin indent on
 " 文件修改之后自动载入
 set autoread
 " 启动的时候不显示那个援助乌干达儿童的提示
-set shortmess=atI
+set shortmess+=c
 
 " 备份,到另一个位置. 防止误删, 目前是取消备份
 "set backup
@@ -72,8 +72,14 @@ set shortmess=atI
 
 " 取消备份。 视情况自己改
 set nobackup
+set nowritebackup
 " 关闭交换文件
 set noswapfile
+" Give more space for displaying messages.
+set cmdheight=2
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
 
 " TODO: remove this, use gundo
@@ -636,9 +642,9 @@ set lazyredraw          " redraw only when we need to.
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Menlo:h14
+    set guifont=JetBrains Mono:h14
     if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 14,Monospace\ 14
+        set guifont=JetBrains Mono\ 14,Monaco\ 14,Monospace\ 14
     endif
     set guioptions-=T
     set guioptions+=e
@@ -656,7 +662,7 @@ endif
 set background=light
 set t_Co=256
 
-colorscheme solarized
+colorscheme dracula
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致
